@@ -7,6 +7,27 @@
 
 #define TEST(expr) checkTest(expr, #expr, __LINE__)
 
+
+namespace {
+    struct Struct16B {
+        uint16_t t;
+    };
+
+    struct Struct32B
+    {
+        uint32_t t;
+    };
+}
+
+static_assert(alignof(sc::SmallVector<Struct16B, 0>) >= alignof(Struct16B),
+    "wrong alignment for 16-byte aligned T");
+static_assert(alignof(sc::SmallVector<Struct32B, 0>) >= alignof(Struct32B),
+    "wrong alignment for 32-byte aligned T");
+static_assert(sizeof(sc::SmallVector<Struct16B, 0>) >= alignof(Struct16B),
+    "missing padding for 16-byte aligned T");
+static_assert(sizeof(sc::SmallVector<Struct32B, 0>) >= alignof(Struct32B),
+    "missing padding for 32-byte aligned T");
+
 void checkTest(bool _expr, const char* _exprStr, int _line)
 {
     if (!_expr)

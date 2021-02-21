@@ -3,26 +3,6 @@
 
 SC_NAMESPACE_BEGIN
 
-namespace {
-    struct Struct16B {
-        uint16_t t;
-    };
-
-    struct Struct32B
-    {
-        uint32_t t;
-    };
-}
-
-static_assert(alignof(SmallVector<Struct16B, 0>) >= alignof(Struct16B),
-    "wrong alignment for 16-byte aligned T");
-static_assert(alignof(SmallVector<Struct32B, 0>) >= alignof(Struct32B),
-    "wrong alignment for 32-byte aligned T");
-static_assert(sizeof(SmallVector<Struct16B, 0>) >= alignof(Struct16B),
-    "missing padding for 16-byte aligned T");
-static_assert(sizeof(SmallVector<Struct32B, 0>) >= alignof(Struct32B),
-    "missing padding for 32-byte aligned T");
-
 // Note: Moving this function into the header may cause performance regression.
 static SC_SIZE_TYPE getNewCapacity(SC_SIZE_TYPE MinSize, SC_SIZE_TYPE TSize, SC_SIZE_TYPE OldCapacity) {
     constexpr SC_SIZE_TYPE MaxSize = std::numeric_limits<SC_SIZE_TYPE>::max();
