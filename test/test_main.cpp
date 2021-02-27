@@ -58,9 +58,9 @@ struct Instrumented
     Instrumented() { construct++; }
     ~Instrumented() { destruct++; }
     Instrumented(const Instrumented&) { construct++; copy++; }
-    Instrumented(Instrumented&&) { construct++;  move++; }
+    Instrumented(Instrumented&&) noexcept { construct++;  move++; }
     Instrumented& operator=(const Instrumented&) { assign++; copy++; return *this; };
-    Instrumented& operator=(Instrumented&&) { assign++; move++; return *this; };
+    Instrumented& operator=(Instrumented&&) noexcept { assign++; move++; return *this; };
 
     static void reset()
     {
