@@ -133,8 +133,8 @@ protected:
     void assertSafeToAddRange(const T* From, const T* To) {
         if (From == To)
             return;
-        this->assertSafeToAdd(From, To - From);
-        this->assertSafeToAdd(To - 1, To - From);
+        this->assertSafeToAdd(From, static_cast<SC_SIZE_TYPE>(To - From));
+        this->assertSafeToAdd(To - 1, static_cast<SC_SIZE_TYPE>(To - From));
     }
     template <
         class ItTy,

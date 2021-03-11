@@ -1,10 +1,12 @@
+#include "common.h"
+
 #include "SmallVector.h"
 #include <cstdint>
 
 SC_NAMESPACE_BEGIN
 
 // Note: Moving this function into the header may cause performance regression.
-static SC_SIZE_TYPE getNewCapacity(SC_SIZE_TYPE MinSize, SC_SIZE_TYPE TSize, SC_SIZE_TYPE OldCapacity) {
+static SC_SIZE_TYPE getNewCapacity(SC_SIZE_TYPE MinSize, SC_SIZE_TYPE OldCapacity) {
     constexpr SC_SIZE_TYPE MaxSize = std::numeric_limits<SC_SIZE_TYPE>::max();
 
     SC_ASSERT(MaxSize >= MinSize);
@@ -20,7 +22,7 @@ static SC_SIZE_TYPE getNewCapacity(SC_SIZE_TYPE MinSize, SC_SIZE_TYPE TSize, SC_
 // Note: Moving this function into the header may cause performance regression.
 void SmallVectorBase::grow_pod(void* FirstEl, SC_SIZE_TYPE MinSize, SC_SIZE_TYPE TSize) 
 {
-    SC_SIZE_TYPE NewCapacity = getNewCapacity(MinSize, TSize, this->capacity());
+    SC_SIZE_TYPE NewCapacity = getNewCapacity(MinSize, this->capacity());
     void* NewElts;
     if (BeginX == FirstEl) {
         NewElts = malloc(static_cast<size_t>(NewCapacity) * TSize);
