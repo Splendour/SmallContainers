@@ -1,5 +1,3 @@
-#include "common.h"
-
 #include "SmallVector.h"
 #include <cstdint>
 
